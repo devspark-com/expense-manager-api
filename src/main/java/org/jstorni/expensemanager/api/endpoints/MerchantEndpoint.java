@@ -1,8 +1,16 @@
 package org.jstorni.expensemanager.api.endpoints;
 
+import java.lang.invoke.MethodHandle;
+import java.lang.invoke.MethodHandles;
+import java.lang.invoke.MethodType;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
+import org.jstorni.expensemanager.api.ActionRegistryEntry;
 import org.jstorni.expensemanager.api.Configuration;
+import org.jstorni.expensemanager.api.Endpoint;
+import org.jstorni.expensemanager.api.exceptions.InternalException;
 import org.jstorni.expensemanager.api.model.Merchant;
 import org.jstorni.lorm.EntityManager;
 import org.jstorni.lorm.Repository;
@@ -11,7 +19,7 @@ import org.jstorni.lorm.mapping.ItemToEntityMapperImpl;
 
 import com.amazonaws.services.lambda.runtime.Context;
 
-public class MerchantEndpoint {
+public class MerchantEndpoint implements Endpoint {
 
 	private final Repository<Merchant> merchantRepository;
 
@@ -24,6 +32,43 @@ public class MerchantEndpoint {
 						Merchant.class));
 
 		merchantRepository = entityManager.getRepository(Merchant.class);
+	}
+
+	@Override
+	public Set<ActionRegistryEntry> getActionRegistryEntries() {
+		Set<ActionRegistryEntry> entries = new HashSet<ActionRegistryEntry>();
+
+		MethodHandles.Lookup lookup = MethodHandles.lookup();
+		entries.add(buildRegistryEntry(lookup, "Merchant.findById", "findById",
+				Key.class));
+
+		return entries;
+	}
+
+	private ActionRegistryEntry buildRegistryEntry(MethodHandles.Lookup lookup,
+			String actionName, String methodName, Class<?> paramClass) {
+
+	}
+
+	private MethodHandle buildHandleFor(MethodHandles.Lookup lookup,
+			String methodName, Class<?> paramClass) {
+		MethodHandle handle;
+
+		try {
+			handle = lookup.findVirtual(getClass(), methodName,
+					getMethodTypeForType(Key.class));
+		} catch (NoSuchMethodException | IllegalAccessException e) {
+			throw new InternalException(
+					"Error while creating handle for method " + methodName
+							+ " on class " + getClass().getName(), e);
+		}
+
+		return handle;
+	}
+
+	private MethodType getMethodTypeForType(Class<?> type) {
+		return MethodType.methodType(getClass(), new Class<?>[] { type,
+				Context.class });
 	}
 
 	public Merchant findById(Key id, Context context) {
