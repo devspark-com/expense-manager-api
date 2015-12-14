@@ -57,19 +57,18 @@ public class GenericHandler {
 					"No action registry entry found for action -> " + action);
 		}
 
-		String payload = rootNode.get(PAYLOAD_FIELD).asText("");
-		if (actionRegistryEntry.getPayloadClass() != null && payload.isEmpty()) {
+		JsonNode payload = rootNode.get(PAYLOAD_FIELD);
+		if (actionRegistryEntry.getPayloadClass() != null
+				&& (payload == null || payload.get("id").asText("").isEmpty())) {
 			throw new BadRequestException("Payload expected for action -> "
 					+ action);
 		}
 
 		List<Object> invocationArgs = new ArrayList<Object>();
-		invocationArgs.add(actionRegistryEntry.getProvider());
-
 		if (actionRegistryEntry.getPayloadClass() != null) {
 			Object payloadValue;
 			try {
-				payloadValue = mapper.readValue(payload,
+				payloadValue = mapper.readValue(payload.traverse(),
 						actionRegistryEntry.getPayloadClass());
 
 			} catch (Exception ex) {

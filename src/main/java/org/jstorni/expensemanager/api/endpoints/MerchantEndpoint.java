@@ -40,35 +40,44 @@ public class MerchantEndpoint implements Endpoint {
 
 		MethodHandles.Lookup lookup = MethodHandles.lookup();
 		entries.add(buildRegistryEntry(lookup, "Merchant.findById", "findById",
-				Key.class));
+				Key.class, Merchant.class));
+		entries.add(buildRegistryEntry(lookup, "Merchant.findAll", "findAll",
+				null, List.class));
+		entries.add(buildRegistryEntry(lookup, "Merchant.delete", "delete",
+				Key.class, Void.class));
+		entries.add(buildRegistryEntry(lookup, "Merchant.save", "save",
+				Merchant.class, Merchant.class));
 
 		return entries;
 	}
 
 	private ActionRegistryEntry buildRegistryEntry(MethodHandles.Lookup lookup,
-			String actionName, String methodName, Class<?> paramClass) {
+			String actionName, String methodName, Class<?> paramClass,
+			Class<?> returnClass) {
 
-	}
-
-	private MethodHandle buildHandleFor(MethodHandles.Lookup lookup,
-			String methodName, Class<?> paramClass) {
 		MethodHandle handle;
 
 		try {
-			handle = lookup.findVirtual(getClass(), methodName,
-					getMethodTypeForType(Key.class));
+			handle = lookup.bind(this, methodName,
+					getMethodTypeForType(returnClass, paramClass));
 		} catch (NoSuchMethodException | IllegalAccessException e) {
 			throw new InternalException(
 					"Error while creating handle for method " + methodName
 							+ " on class " + getClass().getName(), e);
 		}
 
-		return handle;
+		return new ActionRegistryEntry(actionName, paramClass, handle, this);
+
 	}
 
-	private MethodType getMethodTypeForType(Class<?> type) {
-		return MethodType.methodType(getClass(), new Class<?>[] { type,
-				Context.class });
+	private MethodType getMethodTypeForType(Class<?> returnClass, Class<?> type) {
+		if (type == null) {
+			return MethodType.methodType(returnClass,
+					new Class<?>[] { Context.class });
+		} else {
+			return MethodType.methodType(returnClass, new Class<?>[] { type,
+					Context.class });
+		}
 	}
 
 	public Merchant findById(Key id, Context context) {
