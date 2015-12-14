@@ -1,20 +1,18 @@
 package org.jstorni.expensemanager.api;
 
-import java.lang.invoke.MethodHandle;
+import java.util.function.Function;
 
 public class ActionRegistryEntry {
 	private final String action;
 	private final Class<?> payloadClass;
-	private final MethodHandle handle;
-	private final Object provider;
+	private final Function<Object, ?> handle;
 
 	public ActionRegistryEntry(String action, Class<?> payloadClass,
-			MethodHandle handle, Object provider) {
+			Function<Object, ?> handle) {
 		super();
 		this.action = action;
 		this.payloadClass = payloadClass;
 		this.handle = handle;
-		this.provider = provider;
 	}
 
 	public String getAction() {
@@ -25,12 +23,7 @@ public class ActionRegistryEntry {
 		return payloadClass;
 	}
 
-	public MethodHandle getHandle() {
+	public Function<Object, ?> getHandle() {
 		return handle;
 	}
-
-	public Object getProvider() {
-		return provider;
-	}
-
 }
