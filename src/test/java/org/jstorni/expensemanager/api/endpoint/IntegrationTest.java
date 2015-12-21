@@ -45,7 +45,7 @@ public class IntegrationTest {
 		merchant.setName("sample for test");
 		Merchant updatedMerchant = merchantRepository.save(merchant);
 
-		String request = "{\"action\": \"Merchant.findById\", \"payload\": { \"id\": \""
+		String request = "{\"action\": \"merchant.findById\", \"payload\": { \"id\": \""
 				+ updatedMerchant.getId() + "\" }}";
 
 		String response = invoke(request);
@@ -68,7 +68,7 @@ public class IntegrationTest {
 		merchant.setName("sample for test");
 		merchantRepository.save(merchant);
 
-		String request = "{\"action\": \"Merchant.findAll\"}}";
+		String request = "{\"action\": \"merchant.findAll\"}}";
 		String response = invoke(request);
 
 		Assert.assertNotNull(response);
@@ -88,7 +88,7 @@ public class IntegrationTest {
 		merchant.setName("sample for test");
 		Merchant updatedMerchant = merchantRepository.save(merchant);
 
-		String request = "{\"action\": \"Merchant.delete\", \"payload\": { \"id\": \""
+		String request = "{\"action\": \"merchant.deleteById\", \"payload\": { \"id\": \""
 				+ updatedMerchant.getId() + "\" }}";
 
 		Assert.assertNull(invoke(request));
@@ -101,7 +101,7 @@ public class IntegrationTest {
 	public void save() throws JsonParseException, JsonMappingException,
 			IOException {
 		// add
-		String request = "{\"action\": \"Merchant.save\", \"payload\": { \"name\": \""
+		String request = "{\"action\": \"merchant.create\", \"payload\": { \"name\": \""
 				+ "armando barrera" + "\" }}";
 		String response = invoke(request);
 
@@ -115,7 +115,7 @@ public class IntegrationTest {
 		Assert.assertEquals("armando barrera", foundMerchant.getName());
 		
 		// update
-		request = "{\"action\": \"Merchant.save\", \"payload\": { \"name\": \""
+		request = "{\"action\": \"merchant.update\", \"payload\": { \"name\": \""
 				+ "armando barrera 2" + "\", \"id\": \"" + foundMerchant.getId() + "\" }}";
 		String updateResponse = invoke(request);
 
