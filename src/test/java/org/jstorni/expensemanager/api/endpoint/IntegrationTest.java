@@ -6,13 +6,14 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-import org.jstorni.expensemanager.api.Configuration;
-import org.jstorni.expensemanager.api.GenericHandler;
+import org.devspark.aws.lambdasupport.endpoint.Configuration;
+import org.devspark.aws.lambdasupport.endpoint.GenericHandler;
+import org.devspark.aws.lorm.EntityManager;
+import org.devspark.aws.lorm.Repository;
+import org.devspark.aws.lorm.mapping.EntityToItemMapperImpl;
+import org.devspark.aws.lorm.mapping.ItemToEntityMapperImpl;
+import org.jstorni.expensemanager.api.Handler;
 import org.jstorni.expensemanager.api.model.Merchant;
-import org.jstorni.lorm.EntityManager;
-import org.jstorni.lorm.Repository;
-import org.jstorni.lorm.mapping.EntityToItemMapperImpl;
-import org.jstorni.lorm.mapping.ItemToEntityMapperImpl;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -136,7 +137,7 @@ public class IntegrationTest {
 		InputStream in = new ByteArrayInputStream(payload.getBytes());
 		ByteArrayOutputStream out = new ByteArrayOutputStream();
 
-		GenericHandler handler = new GenericHandler();
+		GenericHandler handler = new Handler();
 		handler.handle(in, out, null);
 
 		byte[] response = out.toByteArray();
