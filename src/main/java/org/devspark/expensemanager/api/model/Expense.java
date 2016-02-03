@@ -1,4 +1,4 @@
-package org.jstorni.expensemanager.api.model;
+package org.devspark.expensemanager.api.model;
 
 import java.math.BigDecimal;
 import java.util.Date;

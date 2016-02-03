@@ -1,4 +1,4 @@
-package org.jstorni.expensemanager.api.model;
+package org.devspark.expensemanager.api.model;
 
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

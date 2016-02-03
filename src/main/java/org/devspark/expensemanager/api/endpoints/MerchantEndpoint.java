@@ -1,4 +1,4 @@
-package org.jstorni.expensemanager.api.endpoints;
+package org.devspark.expensemanager.api.endpoints;
 
 import org.devspark.aws.lambdasupport.endpoint.BaseRepositoryEndpoint;
 import org.devspark.aws.lambdasupport.endpoint.Configuration;
@@ -7,7 +7,7 @@ import org.devspark.aws.lorm.EntityManager;
 import org.devspark.aws.lorm.Repository;
 import org.devspark.aws.lorm.mapping.EntityToItemMapperImpl;
 import org.devspark.aws.lorm.mapping.ItemToEntityMapperImpl;
-import org.jstorni.expensemanager.api.model.Merchant;
+import org.devspark.expensemanager.api.model.Merchant;
 
 @Resource(name="merchant")
 public class MerchantEndpoint extends BaseRepositoryEndpoint<Merchant> {

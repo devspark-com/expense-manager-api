@@ -1,4 +1,4 @@
-package org.jstorni.expensemanager.api.endpoint;
+package org.devspark.expensemanager.api.endpoint;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -12,8 +12,8 @@ import org.devspark.aws.lorm.EntityManager;
 import org.devspark.aws.lorm.Repository;
 import org.devspark.aws.lorm.mapping.EntityToItemMapperImpl;
 import org.devspark.aws.lorm.mapping.ItemToEntityMapperImpl;
-import org.jstorni.expensemanager.api.Handler;
-import org.jstorni.expensemanager.api.model.Merchant;
+import org.devspark.expensemanager.api.Handler;
+import org.devspark.expensemanager.api.model.Merchant;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;

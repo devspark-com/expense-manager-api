@@ -1,4 +1,4 @@
-package org.jstorni.expensemanager.api;
+package org.devspark.expensemanager.api;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 import org.devspark.aws.lambdasupport.endpoint.Endpoint;
 import org.devspark.aws.lambdasupport.endpoint.GenericHandler;
 import org.devspark.aws.lambdasupport.endpoint.annotations.lambda.Lambda;
-import org.jstorni.expensemanager.api.endpoints.MerchantEndpoint;
+import org.devspark.expensemanager.api.endpoints.MerchantEndpoint;
 
 @Lambda(name="expense-api")
 public class Handler extends GenericHandler {

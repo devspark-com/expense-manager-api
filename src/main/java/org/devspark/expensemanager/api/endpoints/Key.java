@@ -1,4 +1,4 @@
-package org.jstorni.expensemanager.api.endpoints;
+package org.devspark.expensemanager.api.endpoints;
 
 public class Key {
 
