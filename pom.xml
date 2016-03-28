@@ -11,7 +11,7 @@
 		<dependency>
 			<groupId>org.devspark</groupId>
 			<artifactId>aws-lambda-support</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>0.0.2-SNAPSHOT</version>
 		</dependency>
 
 		<dependency>
@@ -81,19 +81,4 @@
 		</snapshotRepository>
 	</distributionManagement>
 
-	<repositories>
-		<repository>
-			<id>s3-snapshots</id>
-			<url>  
-    https://s3-us-west-2.amazonaws.com/maven-snapshot-repositories/snapshot</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-		</repository>
-		<repository>
-			<id>s3-releases</id>
-			<url>  
-    https://s3-us-west-2.amazonaws.com/maven-release-repositories/release</url>
-		</repository>
-	</repositories>
 </project>
